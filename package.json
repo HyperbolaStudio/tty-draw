@@ -1,0 +1,39 @@
+{
+  "name": "tty-draw",
+  "version": "1.0.0",
+  "description": "Draw 2d graphs on tty.",
+  "main": "out/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HyperbolaStudio/tty-draw.git"
+  },
+  "keywords": [
+    "tty",
+    "console",
+    "terminal",
+    "draw",
+    "canvas"
+  ],
+  "author": "Crindzebra",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HyperbolaStudio/tty-draw/issues"
+  },
+  "homepage": "https://github.com/HyperbolaStudio/tty-draw#readme",
+  "dependencies": {
+    "@types/chai": "^4.2.10",
+    "@types/mocha": "^7.0.2",
+    "@types/yallist": "^3.0.1",
+    "ansi-escape": "^1.1.0",
+    "ansi-escapes": "^4.3.1",
+    "xml-js": "^1.6.11",
+    "yallist": "^4.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.1.0"
+  }
+}
