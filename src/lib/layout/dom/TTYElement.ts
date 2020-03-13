@@ -1,5 +1,6 @@
 import { TTYNode } from "./TTYNode";
 import { Constants } from "./constants";
+import { TTYElementsCollection } from "../../declarations/dom/TTYElementsCollection";
 
 export class TTYElement extends TTYNode{
 
@@ -8,6 +9,10 @@ export class TTYElement extends TTYNode{
         this._tagName = tagName;
     }
 
+    protected _parent:TTYElement|null = null;
+    get parent(){
+        return this._parent;
+    }
 
     protected _tagName:string;
     get tagName(){
@@ -123,6 +128,8 @@ export class TTYElement extends TTYNode{
         return res;
     }
 
+    getElementsByTagName<K extends keyof TTYElementsCollection>(tagName:K):TTYElementsCollection[K][];
+    getElementsByTagName(tagName:string):TTYElement[];
     getElementsByTagName(tagName:string):TTYElement[]{
         let res:TTYElement[] = [];
         this._bfs((elem)=>{

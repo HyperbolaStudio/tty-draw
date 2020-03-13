@@ -1,9 +1,10 @@
 import {expect} from 'chai';
 import { TTYDocument } from '../lib/layout/dom/TTYDocument';
 import { TTYElement } from '../lib/layout/dom/TTYElement';
+import { TTYNode } from '../lib/layout/dom/TTYNode';
 describe('DOMTree',()=>{
     it('unassigned should be null.',()=>{
-        let doc = new TTYDocument();
+        let doc = new TTYNode();
         expect(doc.parent).to.be.not.ok;
         expect(doc.childNodes).to.be.empty;
         expect(doc.isConnected).to.be.false;
@@ -87,5 +88,17 @@ describe('DOMTree',()=>{
         elem2.id = 'x';
         root.appendChild(elem1,elem2);
         expect(root.getElementById('x')).to.equal(elem1);
+    });
+
+    it('insertNodeBefore',()=>{
+        let root = new TTYElement('a');
+        let [elem1,elem2,elem3,elem4,elem5] = [new TTYElement('b'),new TTYElement('b'),new TTYElement('b'),new TTYElement('b'),new TTYElement('b')];
+        root.appendChild(elem1,elem2);
+        root.insertBefore(elem3,elem2);
+        root.insertBefore(elem4,elem1);
+        root.insertBefore(elem5);
+        expect(root.childElements).to.has.members([elem4,elem1,elem3,elem2,elem5]);
+        expect(elem5.previousElementSibling).to.equal(elem2);
+
     });
 });

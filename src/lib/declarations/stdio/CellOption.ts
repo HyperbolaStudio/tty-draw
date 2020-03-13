@@ -1,0 +1,252 @@
+import styles from 'ansi-styles';
+
+export const modifierMap = {
+    reset:{
+        open:styles.reset.open,
+        close:styles.reset.close,
+    },
+    bold:{
+        open:styles.bold.open,
+        close:styles.bold.close,
+    },
+    dim:{
+        open:styles.dim.open,
+        close:styles.dim.close,
+    },
+    italic:{
+        open:styles.italic.open,
+        close:styles.italic.close,
+    },
+    underline:{
+        open:styles.underline.open,
+        close:styles.underline.close,
+    },
+    inverse:{
+        open:styles.inverse.open,
+        close:styles.inverse.close,
+    },
+    hidden:{
+        open:styles.hidden.open,
+        close:styles.hidden.close,
+    },
+    strikethrough:{
+        open:styles.strikethrough.open,
+        close:styles.strikethrough.close,
+    },
+}
+
+export const color16Map = {
+    black:{
+        foreground:{
+            open:styles.black.open,
+            close:styles.black.close,
+        },
+        background:{
+            open:styles.bgBlack.open,
+            close:styles.bgBlack.close,
+        }
+    },
+    red:{
+        foreground:{
+            open:styles.red.open,
+            close:styles.red.close,
+        },
+        background:{
+            open:styles.bgRed.open,
+            close:styles.bgRed.close,
+        }
+    },
+    green:{
+        foreground:{
+            open:styles.green.open,
+            close:styles.green.close,
+        },
+        background:{
+            open:styles.bgGreen.open,
+            close:styles.bgGreen.close,
+        }
+    },
+    yellow:{
+        foreground:{
+            open:styles.yellow.open,
+            close:styles.yellow.close,
+        },
+        background:{
+            open:styles.bgYellow.open,
+            close:styles.bgYellow.close,
+        }
+    },
+    blue:{
+        foreground:{
+            open:styles.blue.open,
+            close:styles.blue.close,
+        },
+        background:{
+            open:styles.bgBlue.open,
+            close:styles.bgBlue.close,
+        }
+    },
+    magenta:{
+        foreground:{
+            open:styles.magenta.open,
+            close:styles.magenta.close,
+        },
+        background:{
+            open:styles.bgMagenta.open,
+            close:styles.bgMagenta.close,
+        }
+    },
+    cyan:{
+        foreground:{
+            open:styles.cyan.open,
+            close:styles.cyan.close,
+        },
+        background:{
+            open:styles.bgCyan.open,
+            close:styles.bgCyan.close,
+        }
+    },
+    white:{
+        foreground:{
+            open:styles.white.open,
+            close:styles.white.close,
+        },
+        background:{
+            open:styles.bgWhite.open,
+            close:styles.bgWhite.close,
+        }
+    },
+    blackBright:{
+        foreground:{
+            open:styles.blackBright.open,
+            close:styles.blackBright.close,
+        },
+        background:{
+            open:styles.bgBlackBright.open,
+            close:styles.bgBlackBright.close,
+        }
+    },
+    gray:{
+        foreground:{
+            open:styles.gray.open,
+            close:styles.gray.close,
+        },
+        background:{
+            open:styles.bgGray.open,
+            close:styles.bgGray.close,
+        }
+    },
+    grey:{
+        foreground:{
+            open:styles.grey.open,
+            close:styles.grey.close,
+        },
+        background:{
+            open:styles.bgGrey.open,
+            close:styles.bgGrey.close,
+        }
+    },
+    redBright:{
+        foreground:{
+            open:styles.redBright.open,
+            close:styles.redBright.close,
+        },
+        background:{
+            open:styles.bgRedBright.open,
+            close:styles.bgRedBright.close,
+        }
+    },
+    greenBright:{
+        foreground:{
+            open:styles.greenBright.open,
+            close:styles.greenBright.close,
+        },
+        background:{
+            open:styles.bgGreenBright.open,
+            close:styles.bgGreenBright.close,
+        }
+    },
+    yellowBright:{
+        foreground:{
+            open:styles.yellowBright.open,
+            close:styles.yellowBright.close,
+        },
+        background:{
+            open:styles.bgYellowBright.open,
+            close:styles.bgYellowBright.close,
+        }
+    },
+    blueBright:{
+        foreground:{
+            open:styles.blueBright.open,
+            close:styles.blueBright.close,
+        },
+        background:{
+            open:styles.bgBlueBright.open,
+            close:styles.bgBlueBright.close,
+        }
+    },
+    magentaBright:{
+        foreground:{
+            open:styles.magentaBright.open,
+            close:styles.magentaBright.close,
+        },
+        background:{
+            open:styles.bgMagentaBright.open,
+            close:styles.bgMagentaBright.close,
+        }
+    },
+    cyanBright:{
+        foreground:{
+            open:styles.cyanBright.open,
+            close:styles.cyanBright.close,
+        },
+        background:{
+            open:styles.bgCyanBright.open,
+            close:styles.bgCyanBright.close,
+        }
+    },
+    whiteBright:{
+        foreground:{
+            open:styles.whiteBright.open,
+            close:styles.whiteBright.close,
+        },
+        background:{
+            open:styles.bgWhiteBright.open,
+            close:styles.bgWhiteBright.close,
+        }
+    },
+}
+
+export type Color16String = keyof typeof color16Map;
+export type Color256 = {
+    ansi256: number
+}
+export type ColorRGB = {
+    r:number;
+    g:number;
+    b:number;
+}
+export type ColorType = Color16String|Color256|ColorRGB;
+
+export function isColor16String(color:ColorType):color is Color16String{
+    return typeof(color)=='string';
+}
+export function isColor256(color:ColorType):color is Color256{
+    return typeof((color as any).ansi256)=='number';
+}
+export function isColorRGB(color:ColorType):color is ColorRGB{
+    return typeof((color as any).r)=='number';
+}
+
+export type ModifierString = keyof typeof modifierMap;
+export type ModifierType = {
+    [K in ModifierString]?:boolean;
+}
+
+export interface Cell{
+    color?:ColorType;
+    bgColor?:ColorType;
+    modifiers?:ModifierType;
+    char?:string;
+}
