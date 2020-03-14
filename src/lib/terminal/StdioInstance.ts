@@ -1,7 +1,9 @@
 import escapes from 'ansi-escapes';
 import styles from 'ansi-styles';
+import convert from 'key-convert';
 import {EventEmitter} from 'events';
-import { Cell, ModifierString, modifierMap, isColor16String, color16Map, isColor256, isColorRGB } from '../declarations/stdio/CellOption';
+import { Cell, ModifierString, modifierMap, isColor16String, color16Map, isColor256, isColorRGB } from '../declarations/stdio/Cell';
+import { Constants } from './constants';
 
 export class StdioInstance extends EventEmitter{
 
@@ -12,6 +14,9 @@ export class StdioInstance extends EventEmitter{
         this.stdin = stdin;
         this.stdout = stdout;
         this.console = new console.Console(stdout);
+        this.stdin.on('data',(chunk)=>{
+            this.emit(Constants.StdioEvents.input,convert(chunk));
+        });
     }
     stdin:NodeJS.ReadStream;
     stdout:NodeJS.WriteStream;

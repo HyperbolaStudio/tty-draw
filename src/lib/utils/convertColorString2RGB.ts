@@ -1,4 +1,4 @@
-import { ColorRGB } from "../declarations/stdio/CellOption";
+import { ColorRGB } from "../declarations/stdio/Cell";
 import convert from 'color-convert';
 
 export const HexDashRegExp = /^#[0-9A-Fa-f]+$/;
