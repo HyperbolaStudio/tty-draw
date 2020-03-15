@@ -100,7 +100,7 @@ export class TTYNode extends EventEmitter{
         let queue:TTYNode[] = [...this.childNodes];
         while(queue.length){
             let elem = queue.shift()!;
-            if(cb(elem)==Constants.Node.BREAK_ITERATION){
+            if(cb(elem)===Constants.Node.BREAK_ITERATION){
                 return;
             }
             queue.push(...elem.childNodes);

@@ -14,6 +14,7 @@ export class StdioInstance extends EventEmitter{
         this.stdin = stdin;
         this.stdout = stdout;
         this.console = new console.Console(stdout);
+        this.console.clear();
         this.stdin.on('data',(chunk)=>{
             this.emit(Constants.StdioEvents.input,convert(chunk));
         });
@@ -29,8 +30,8 @@ export class StdioInstance extends EventEmitter{
     _currentCursorX:number = -1;
     _currentCursorY:number = -1;
 
-    writeCell(cell:Cell,x:number,y:number){
-        if((x!=this._currentCursorX||y!=this._currentCursorY)){
+    cursorTo(x:number,y?:number){
+        if((x!==this._currentCursorX||y!==this._currentCursorY)){
             this.stdout.write(escapes.cursorTo(x,y));
             this._currentCursorX = x+1;
             this._currentCursorY = y?y:this._currentCursorY;
@@ -44,6 +45,27 @@ export class StdioInstance extends EventEmitter{
         if(this._currentCursorY>=this.stdout.rows){
             this._currentCursorX = this._currentCursorY = -1;
         }
+    }
+
+    protected _cursorHidden = false;
+    cursorHide(){
+        this.stdout.write(escapes.cursorHide);
+        this._cursorHidden = true;
+    }
+    cursorShow(){
+        this.stdout.write(escapes.cursorShow);
+        this._cursorHidden = false;
+    }
+    cursorDisplayToggle(){
+        if(this._cursorHidden){
+            this.cursorShow();
+        }else{
+            this.cursorHide();
+        }
+    }
+
+    writeCell(cell:Cell,x:number,y:number){
+        this.cursorTo(x,y);
         let openEscapes:string[] = [];
         let closeEscapes:string[] = [];
         if(cell.modifiers){

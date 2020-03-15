@@ -1,9 +1,10 @@
 import { Cell } from "../stdio/Cell";
 
 export interface Layer{
-    left?:number;
-    top?:number;
+    margin:[number?,number?];
+    padding:[number?,number?];
+    zIndex?:number;
     rows?:number;
     columns?:number;
-    screen:Cell[];
+    screen:(Cell|undefined)[][];
 }

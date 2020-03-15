@@ -5,7 +5,7 @@ export class TTYAnchorElement extends TTYElement{
         return this.getAttribute('href');
     }
     set href(href:string|null){
-        if(href==null){
+        if(href===null){
             this.removeAttribute('href');
         }else{
             this.setAttribute('href',href);
@@ -15,7 +15,7 @@ export class TTYAnchorElement extends TTYElement{
         return this.getAttribute('target');
     }
     set target(target:string|null){
-        if(target==null){
+        if(target===null){
             this.removeAttribute('target');
         }else{
             this.setAttribute('target',target);

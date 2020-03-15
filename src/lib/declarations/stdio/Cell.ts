@@ -230,13 +230,13 @@ export type ColorRGB = {
 export type ColorType = Color16String|Color256|ColorRGB;
 
 export function isColor16String(color:ColorType):color is Color16String{
-    return typeof(color)=='string';
+    return typeof(color)==='string';
 }
 export function isColor256(color:ColorType):color is Color256{
-    return typeof((color as any).ansi256)=='number';
+    return typeof((color as any).ansi256)==='number';
 }
 export function isColorRGB(color:ColorType):color is ColorRGB{
-    return typeof((color as any).r)=='number';
+    return typeof((color as any).r)==='number';
 }
 
 export type ModifierString = keyof typeof modifierMap;

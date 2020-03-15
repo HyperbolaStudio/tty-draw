@@ -19,7 +19,7 @@ export class TTYLIElement extends TTYElement{
                 }else{
                     index++;
                 }
-                if(elem==this){
+                if(elem===this){
                     return index;
                 }
             }

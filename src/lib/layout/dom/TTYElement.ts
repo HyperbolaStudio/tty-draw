@@ -34,7 +34,7 @@ export class TTYElement extends TTYNode{
         return this.getAttribute('id');
     }
     set id(id:string|null){
-        if(id==null){
+        if(id===null){
             this.removeAttribute('id');
         }else{
             this.setAttribute('id',id);
@@ -45,7 +45,7 @@ export class TTYElement extends TTYNode{
         return this.getAttribute('class');
     }
     set className(className:string|null){
-        if(className==null){
+        if(className===null){
             this.removeAttribute('class');
         }else{
             this.setAttribute('class',className);
@@ -105,7 +105,7 @@ export class TTYElement extends TTYNode{
     getElementById(id:string):TTYElement|null{
         let result=null;
         this._bfs((elem)=>{
-            if(elem instanceof TTYElement && elem.id == id){
+            if(elem instanceof TTYElement && elem.id === id){
                 result = elem;
                 return Constants.Node.BREAK_ITERATION;
             }
