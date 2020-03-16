@@ -33,6 +33,7 @@
     "ansi-styles": "^4.2.1",
     "color-convert": "^2.0.1",
     "key-convert": "0.0.1",
+    "string-width": "^4.2.0",
     "xml-js": "^1.6.11",
     "yallist": "^4.0.0"
   },

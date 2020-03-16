@@ -248,5 +248,5 @@ export interface Cell{
     color?:ColorType;
     bgColor?:ColorType;
     modifiers?:ModifierType;
-    char?:string;
+    char?:string|symbol;
 }

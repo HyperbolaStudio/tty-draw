@@ -45,5 +45,10 @@ export function compareCell(a?:Cell,b?:Cell){
 
 export function cloneCell(a?:Cell):Cell|undefined{
     if(!a)return undefined;
-    return JSON.parse(JSON.stringify(a));
+    return {
+        color:a.color?JSON.parse(JSON.stringify(a.color)):undefined,
+        bgColor:a.bgColor?JSON.parse(JSON.stringify(a.bgColor)):undefined,
+        modifiers:a.modifiers?JSON.parse(JSON.stringify(a.modifiers)):undefined,
+        char:a.char,
+    }
 }

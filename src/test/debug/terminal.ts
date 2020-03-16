@@ -12,7 +12,7 @@ let layer0:Layer = {
 ti.stdioInstance.cursorHide();
 
 let layer1:Layer = {
-    margin:[3,4],
+    margin:[4,4],
     padding:[0,0],
     screen:[],
 }
@@ -28,14 +28,14 @@ ti.fill(layer0,0,0,process.stdout.rows-1,process.stdout.columns-1,{
 ti.fill(layer1,0,0,12,40,{
     bgColor:'yellow',
 })
-ti.fill(layer1,0,0,8,8,{
+ti.fillText(layer1,0,0,9,9,{
     bgColor:'blue',
-    char:'a',
-});
+    char:'',
+},'我能吞下玻璃而不伤身体。\nThe quick brown fox jumps over the lazy dog. ',4,true);
 ti.fill(layer2,0,0,5,5,{
     bgColor:'red',
-    char:'b',
-})
+    char:'あ',
+});
 ti.render();
 ti.write();
 ti.stdioInstance.on('input',(k:KeyInput)=>{
@@ -45,6 +45,9 @@ ti.stdioInstance.on('input',(k:KeyInput)=>{
     }
     if(k.type=='non-printable'){
         switch(k.keys[0]){
+            case Keys.enter:
+                ti.write(true);
+                break;
             case Keys.up:
                 (layer1.margin[1] as any)--;
                 break;
@@ -52,10 +55,10 @@ ti.stdioInstance.on('input',(k:KeyInput)=>{
                 (layer1.margin[1] as any)++;
                 break;
             case Keys.left:
-                (layer1.margin[0] as any)--;
+                (layer1.margin[0] as any)-=2;
                 break;
             case Keys.right:
-                (layer1.margin[0] as any)++;
+                (layer1.margin[0] as any)+=2;
                 break;
         }
     }else if(k.type=='printable'){
@@ -67,10 +70,10 @@ ti.stdioInstance.on('input',(k:KeyInput)=>{
                 (layer2.margin[1] as any)++;
                 break;
             case 'a':
-                (layer2.margin[0] as any)--;
+                (layer2.margin[0] as any)-=2;
                 break;
             case 'd':
-                (layer2.margin[0] as any)++;
+                (layer2.margin[0] as any)+=2;
                 break;
         }
     }

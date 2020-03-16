@@ -7,6 +7,8 @@ import Yallist from 'yallist';
 import { optional } from '../utils/optional';
 import { judgeIsInRange } from '../utils/judgeIsInRange';
 import { compareCell, cloneCell } from '../utils/cellUtils';
+import stringWidth from 'string-width';
+import { Constants } from './constants';
 
 export class TerminalInstance extends EventEmitter{
 
@@ -45,6 +47,57 @@ export class TerminalInstance extends EventEmitter{
         for(let r=rowFrom;r<=rowTo;r++){
             for(let c=columnFrom;c<=columnTo;c++){
                 this._setCell(layer,r,c,cell);
+                if(cell&&typeof(cell.char)==='string'){
+                    let placeHold = stringWidth(cell.char)-1;
+                    while(placeHold-- > 0){
+                        c++;
+                        this._setCell(layer,r,c,{char:Constants.WIDTH_PLACEHOLDER});
+                    }
+                }
+            }
+        }
+    }
+
+    fillText(
+        layer:Layer,
+        rowFrom:number,
+        columnFrom:number,
+        rowTo:number,
+        columnTo:number,
+        templateCell:Cell|undefined,
+        text:string,
+        indent:number = 0,
+        hyphenAtNewLine:boolean = false,
+    ){
+        let indented:boolean = false;
+        let index = 0;
+        for(let r=rowFrom;r<=rowTo;r++){
+            let holdLine = false;
+            for(let c=columnFrom;c<=columnTo;c++){
+                if(holdLine){
+                    continue;
+                };
+                if(!indented){
+                    c+=indent;
+                    indented = true;
+                }
+                let cell = {
+                    ...templateCell,
+                    char:text[index++],
+                }
+                if(cell.char == undefined)return;
+                if(cell.char == '\n'){
+                    holdLine = true;
+                    continue;
+                }
+                this._setCell(layer,r,c,cell);
+                if(cell&&typeof(cell.char)==='string'){
+                    let placeHold = stringWidth(cell.char)-1;
+                    while(placeHold-- > 0){
+                        c++;
+                        this._setCell(layer,r,c,{char:Constants.WIDTH_PLACEHOLDER});
+                    }
+                }
             }
         }
     }
@@ -106,6 +159,7 @@ export class TerminalInstance extends EventEmitter{
                 }
             }
         }
+        
     }
 
     protected _flush(){
