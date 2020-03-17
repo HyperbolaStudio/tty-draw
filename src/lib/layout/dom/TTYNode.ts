@@ -25,7 +25,7 @@ export class TTYNode extends EventEmitter{
         return this._lListNode?.next?.value;
     }
 
-    protected _ownerDocument:TTYDocument|null|undefined = null;
+    _ownerDocument:TTYDocument|null|undefined = null;
     get ownerDocument(){
         return this._ownerDocument;
     }

@@ -1,16 +1,24 @@
 import { TTYNode } from "./TTYNode";
 import { TTYElement } from "./TTYElement";
 import { TTYElementsCollection, TTYElementConstructors } from "../../declarations/dom/TTYElementsCollection";
+import { RenderedTree } from "../render/RenderedNode";
+import { optional } from "../../utils/optional";
 
 export class TTYDocument extends TTYNode{
 
-    constructor(root:TTYElement){
+    constructor(root?:TTYElement){
         super();
-        this.root = root;
+        if(root){
+            this.setRoot(root);
+        }
     }
 
-    protected _ownerDocument = this;
+    _ownerDocument = this;
     
+    setRoot(root:TTYElement){
+        this.root = root;
+        root._ownerDocument = this;
+    }
 
     createElement<K extends keyof TTYElementsCollection>(tagName:K):TTYElementsCollection[K];
     createElement(tagName:string):TTYElement;
@@ -22,6 +30,7 @@ export class TTYDocument extends TTYNode{
         }
     }
 
-    root:TTYElement;
+    root:TTYElement|null = null;
 
+    _renderedTree?:RenderedTree;
 }

@@ -1,6 +1,9 @@
 import { TTYNode } from "./TTYNode";
 import { Constants } from "./constants";
 import { TTYElementsCollection } from "../../declarations/dom/TTYElementsCollection";
+import { TTYTextNode } from "./TTYTextNode";
+import { querySelector, querySelectorAll } from "../../utils/selectorUtils";
+import { RenderedTree, RenderedNode } from "../render/RenderedNode";
 
 export class TTYElement extends TTYNode{
 
@@ -139,4 +142,38 @@ export class TTYElement extends TTYNode{
         });
         return res;
     }
+
+    querySelector<K extends keyof TTYElementsCollection>(selector:K):TTYElementsCollection[K]|null;
+    querySelector(selector:string):TTYElement|null;
+    querySelector(selector:string):TTYElement|null{
+        return querySelector(this,selector);
+    }
+
+    querySelectorAll<K extends keyof TTYElementsCollection>(selector:K):TTYElementsCollection[K][];
+    querySelectorAll(selector:string):TTYElement[];
+    querySelectorAll(selector:string):TTYElement[]{
+        return querySelectorAll(this,selector);
+    }
+
+    get textContent(){
+        let text = '';
+        for(let node of this.childNodes){
+            if(node instanceof TTYTextNode){
+                text+=node.text;
+            }else if(node instanceof TTYElement){
+                text+=node.textContent;
+            }
+        }
+        return text;
+    }
+
+    set textContent(text:string){
+        for(let node of this.childNodes){
+            (node as any)._remove();
+        }
+        let textNode = new TTYTextNode(text);
+        this.appendChild(textNode);
+    }
+
+    _renderedNode?:RenderedNode;
 }
