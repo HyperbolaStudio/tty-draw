@@ -1,0 +1,9 @@
+<tty>
+    <head>
+        <title>ABC</title>
+    </head>
+    <body>
+        <div id='a'>aaa</div>
+        <div id='b'>bbb</div>
+    </body>
+</tty>
